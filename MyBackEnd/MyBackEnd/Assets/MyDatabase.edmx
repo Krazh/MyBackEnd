@@ -1,0 +1,952 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SalesCommModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccessRightsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Level" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BrandSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ImgURL" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BusinessSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BusinessTypeId" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CityPostalCode" Type="int" Nullable="false" />
+          <Property Name="CVR" Type="nvarchar(max)" />
+          <Property Name="ChainId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BusinessTypeSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CampaignSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="CreatedByUserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChainCampaign">
+          <Key>
+            <PropertyRef Name="Chain_Id" />
+            <PropertyRef Name="Campaign_Id" />
+          </Key>
+          <Property Name="Chain_Id" Type="int" Nullable="false" />
+          <Property Name="Campaign_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChainSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ProMode" Type="bit" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="CityPostalCode" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CitySet">
+          <Key>
+            <PropertyRef Name="PostalCode" />
+          </Key>
+          <Property Name="PostalCode" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ErrorSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProcessName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Page" Type="nvarchar(max)" />
+          <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Time" Type="datetime" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemBusiness">
+          <Key>
+            <PropertyRef Name="Item_Id" />
+            <PropertyRef Name="Business_Id" />
+          </Key>
+          <Property Name="Item_Id" Type="int" Nullable="false" />
+          <Property Name="Business_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemCampaignSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemId" Type="int" Nullable="false" />
+          <Property Name="CampaignId" Type="int" Nullable="false" />
+          <Property Name="Discount" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ItemSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ImgURL" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="BrandId" Type="int" Nullable="false" />
+          <Property Name="ProOnly" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Price" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccessRightsId" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="BusinessId" Type="int" Nullable="false" />
+          <Property Name="CityPostalCode" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_BusinessCity">
+          <End Role="CitySet" Type="Self.CitySet" Multiplicity="1" />
+          <End Role="BusinessSet" Type="Self.BusinessSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CitySet">
+              <PropertyRef Name="PostalCode" />
+            </Principal>
+            <Dependent Role="BusinessSet">
+              <PropertyRef Name="CityPostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessTypeAss">
+          <End Role="BusinessTypeSet" Type="Self.BusinessTypeSet" Multiplicity="1" />
+          <End Role="BusinessSet" Type="Self.BusinessSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusinessTypeSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessSet">
+              <PropertyRef Name="BusinessTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CampaignItemCampaign">
+          <End Role="CampaignSet" Type="Self.CampaignSet" Multiplicity="1" />
+          <End Role="ItemCampaignSet" Type="Self.ItemCampaignSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CampaignSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemCampaignSet">
+              <PropertyRef Name="CampaignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChainBusiness">
+          <End Role="ChainSet" Type="Self.ChainSet" Multiplicity="1" />
+          <End Role="BusinessSet" Type="Self.BusinessSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChainSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessSet">
+              <PropertyRef Name="ChainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChainCampaign_Campaign">
+          <End Role="CampaignSet" Type="Self.CampaignSet" Multiplicity="1" />
+          <End Role="ChainCampaign" Type="Self.ChainCampaign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CampaignSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChainCampaign">
+              <PropertyRef Name="Campaign_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChainCampaign_Chain">
+          <End Role="ChainSet" Type="Self.ChainSet" Multiplicity="1" />
+          <End Role="ChainCampaign" Type="Self.ChainCampaign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChainSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChainCampaign">
+              <PropertyRef Name="Chain_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CityChain">
+          <End Role="CitySet" Type="Self.CitySet" Multiplicity="1" />
+          <End Role="ChainSet" Type="Self.ChainSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CitySet">
+              <PropertyRef Name="PostalCode" />
+            </Principal>
+            <Dependent Role="ChainSet">
+              <PropertyRef Name="CityPostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ErrorUser">
+          <End Role="UserSet" Type="Self.UserSet" Multiplicity="1" />
+          <End Role="ErrorSet" Type="Self.ErrorSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ErrorSet">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemBrand">
+          <End Role="BrandSet" Type="Self.BrandSet" Multiplicity="1" />
+          <End Role="ItemSet" Type="Self.ItemSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BrandSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemSet">
+              <PropertyRef Name="BrandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemBusiness_Business">
+          <End Role="BusinessSet" Type="Self.BusinessSet" Multiplicity="1" />
+          <End Role="ItemBusiness" Type="Self.ItemBusiness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusinessSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemBusiness">
+              <PropertyRef Name="Business_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemBusiness_Item">
+          <End Role="ItemSet" Type="Self.ItemSet" Multiplicity="1" />
+          <End Role="ItemBusiness" Type="Self.ItemBusiness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemBusiness">
+              <PropertyRef Name="Item_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemCampaignItem">
+          <End Role="ItemSet" Type="Self.ItemSet" Multiplicity="1" />
+          <End Role="ItemCampaignSet" Type="Self.ItemCampaignSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemCampaignSet">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAccessRights">
+          <End Role="AccessRightsSet" Type="Self.AccessRightsSet" Multiplicity="1" />
+          <End Role="UserSet" Type="Self.UserSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessRightsSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSet">
+              <PropertyRef Name="AccessRightsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserBusiness">
+          <End Role="BusinessSet" Type="Self.BusinessSet" Multiplicity="1" />
+          <End Role="UserSet" Type="Self.UserSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusinessSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSet">
+              <PropertyRef Name="BusinessId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCampaign">
+          <End Role="UserSet" Type="Self.UserSet" Multiplicity="1" />
+          <End Role="CampaignSet" Type="Self.CampaignSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CampaignSet">
+              <PropertyRef Name="CreatedByUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCity">
+          <End Role="CitySet" Type="Self.CitySet" Multiplicity="1" />
+          <End Role="UserSet" Type="Self.UserSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CitySet">
+              <PropertyRef Name="PostalCode" />
+            </Principal>
+            <Dependent Role="UserSet">
+              <PropertyRef Name="CityPostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SalesCommModelStoreContainer">
+          <EntitySet Name="AccessRightsSet" EntityType="Self.AccessRightsSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BrandSet" EntityType="Self.BrandSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusinessSet" EntityType="Self.BusinessSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusinessTypeSet" EntityType="Self.BusinessTypeSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CampaignSet" EntityType="Self.CampaignSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChainCampaign" EntityType="Self.ChainCampaign" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChainSet" EntityType="Self.ChainSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CitySet" EntityType="Self.CitySet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ErrorSet" EntityType="Self.ErrorSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemBusiness" EntityType="Self.ItemBusiness" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemCampaignSet" EntityType="Self.ItemCampaignSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemSet" EntityType="Self.ItemSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSet" EntityType="Self.UserSet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BusinessCity" Association="Self.FK_BusinessCity">
+            <End Role="CitySet" EntitySet="CitySet" />
+            <End Role="BusinessSet" EntitySet="BusinessSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessTypeAss" Association="Self.FK_BusinessTypeAss">
+            <End Role="BusinessTypeSet" EntitySet="BusinessTypeSet" />
+            <End Role="BusinessSet" EntitySet="BusinessSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CampaignItemCampaign" Association="Self.FK_CampaignItemCampaign">
+            <End Role="CampaignSet" EntitySet="CampaignSet" />
+            <End Role="ItemCampaignSet" EntitySet="ItemCampaignSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChainBusiness" Association="Self.FK_ChainBusiness">
+            <End Role="ChainSet" EntitySet="ChainSet" />
+            <End Role="BusinessSet" EntitySet="BusinessSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChainCampaign_Campaign" Association="Self.FK_ChainCampaign_Campaign">
+            <End Role="CampaignSet" EntitySet="CampaignSet" />
+            <End Role="ChainCampaign" EntitySet="ChainCampaign" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChainCampaign_Chain" Association="Self.FK_ChainCampaign_Chain">
+            <End Role="ChainSet" EntitySet="ChainSet" />
+            <End Role="ChainCampaign" EntitySet="ChainCampaign" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CityChain" Association="Self.FK_CityChain">
+            <End Role="CitySet" EntitySet="CitySet" />
+            <End Role="ChainSet" EntitySet="ChainSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ErrorUser" Association="Self.FK_ErrorUser">
+            <End Role="UserSet" EntitySet="UserSet" />
+            <End Role="ErrorSet" EntitySet="ErrorSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemBrand" Association="Self.FK_ItemBrand">
+            <End Role="BrandSet" EntitySet="BrandSet" />
+            <End Role="ItemSet" EntitySet="ItemSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemBusiness_Business" Association="Self.FK_ItemBusiness_Business">
+            <End Role="BusinessSet" EntitySet="BusinessSet" />
+            <End Role="ItemBusiness" EntitySet="ItemBusiness" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemBusiness_Item" Association="Self.FK_ItemBusiness_Item">
+            <End Role="ItemSet" EntitySet="ItemSet" />
+            <End Role="ItemBusiness" EntitySet="ItemBusiness" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemCampaignItem" Association="Self.FK_ItemCampaignItem">
+            <End Role="ItemSet" EntitySet="ItemSet" />
+            <End Role="ItemCampaignSet" EntitySet="ItemCampaignSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAccessRights" Association="Self.FK_UserAccessRights">
+            <End Role="AccessRightsSet" EntitySet="AccessRightsSet" />
+            <End Role="UserSet" EntitySet="UserSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserBusiness" Association="Self.FK_UserBusiness">
+            <End Role="BusinessSet" EntitySet="BusinessSet" />
+            <End Role="UserSet" EntitySet="UserSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCampaign" Association="Self.FK_UserCampaign">
+            <End Role="UserSet" EntitySet="UserSet" />
+            <End Role="CampaignSet" EntitySet="CampaignSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCity" Association="Self.FK_UserCity">
+            <End Role="CitySet" EntitySet="CitySet" />
+            <End Role="UserSet" EntitySet="UserSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SalesCommModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AccessRights">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Level" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UserSet" Relationship="Self.FK_UserAccessRights" FromRole="AccessRightsSet" ToRole="UserSet" />
+        </EntityType>
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImgURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ItemSet" Relationship="Self.FK_ItemBrand" FromRole="BrandSet" ToRole="ItemSet" />
+        </EntityType>
+        <EntityType Name="Business">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BusinessTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CityPostalCode" Type="Int32" Nullable="false" />
+          <Property Name="CVR" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChainId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CitySet" Relationship="Self.FK_BusinessCity" FromRole="BusinessSet" ToRole="CitySet" />
+          <NavigationProperty Name="BusinessTypeSet" Relationship="Self.FK_BusinessTypeAss" FromRole="BusinessSet" ToRole="BusinessTypeSet" />
+          <NavigationProperty Name="ChainSet" Relationship="Self.FK_ChainBusiness" FromRole="BusinessSet" ToRole="ChainSet" />
+          <NavigationProperty Name="UserSet" Relationship="Self.FK_UserBusiness" FromRole="BusinessSet" ToRole="UserSet" />
+          <NavigationProperty Name="ItemSet" Relationship="Self.ItemBusiness" FromRole="BusinessSet" ToRole="ItemSet" />
+        </EntityType>
+        <EntityType Name="BusinessType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BusinessSet" Relationship="Self.FK_BusinessTypeAss" FromRole="BusinessTypeSet" ToRole="BusinessSet" />
+        </EntityType>
+        <EntityType Name="Campaign">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedByUserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ItemCampaignSet" Relationship="Self.FK_CampaignItemCampaign" FromRole="CampaignSet" ToRole="ItemCampaignSet" />
+          <NavigationProperty Name="UserSet" Relationship="Self.FK_UserCampaign" FromRole="CampaignSet" ToRole="UserSet" />
+          <NavigationProperty Name="ChainSet" Relationship="Self.ChainCampaign" FromRole="CampaignSet" ToRole="ChainSet" />
+        </EntityType>
+        <EntityType Name="Chain">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProMode" Type="Boolean" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CityPostalCode" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BusinessSet" Relationship="Self.FK_ChainBusiness" FromRole="ChainSet" ToRole="BusinessSet" />
+          <NavigationProperty Name="CitySet" Relationship="Self.FK_CityChain" FromRole="ChainSet" ToRole="CitySet" />
+          <NavigationProperty Name="CampaignSet" Relationship="Self.ChainCampaign" FromRole="ChainSet" ToRole="CampaignSet" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="PostalCode" />
+          </Key>
+          <Property Name="PostalCode" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BusinessSet" Relationship="Self.FK_BusinessCity" FromRole="CitySet" ToRole="BusinessSet" />
+          <NavigationProperty Name="ChainSet" Relationship="Self.FK_CityChain" FromRole="CitySet" ToRole="ChainSet" />
+          <NavigationProperty Name="UserSet" Relationship="Self.FK_UserCity" FromRole="CitySet" ToRole="UserSet" />
+        </EntityType>
+        <EntityType Name="Error">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcessName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Page" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UserSet" Relationship="Self.FK_ErrorUser" FromRole="ErrorSet" ToRole="UserSet" />
+        </EntityType>
+        <EntityType Name="ItemCampaign">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemId" Type="Int32" Nullable="false" />
+          <Property Name="CampaignId" Type="Int32" Nullable="false" />
+          <Property Name="Discount" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CampaignSet" Relationship="Self.FK_CampaignItemCampaign" FromRole="ItemCampaignSet" ToRole="CampaignSet" />
+          <NavigationProperty Name="ItemSet" Relationship="Self.FK_ItemCampaignItem" FromRole="ItemCampaignSet" ToRole="ItemSet" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImgURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BrandId" Type="Int32" Nullable="false" />
+          <Property Name="ProOnly" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BrandSet" Relationship="Self.FK_ItemBrand" FromRole="ItemSet" ToRole="BrandSet" />
+          <NavigationProperty Name="ItemCampaignSet" Relationship="Self.FK_ItemCampaignItem" FromRole="ItemSet" ToRole="ItemCampaignSet" />
+          <NavigationProperty Name="BusinessSet" Relationship="Self.ItemBusiness" FromRole="ItemSet" ToRole="BusinessSet" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccessRightsId" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BusinessId" Type="Int32" Nullable="false" />
+          <Property Name="CityPostalCode" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AccessRightsSet" Relationship="Self.FK_UserAccessRights" FromRole="UserSet" ToRole="AccessRightsSet" />
+          <NavigationProperty Name="BusinessSet" Relationship="Self.FK_UserBusiness" FromRole="UserSet" ToRole="BusinessSet" />
+          <NavigationProperty Name="CampaignSet" Relationship="Self.FK_UserCampaign" FromRole="UserSet" ToRole="CampaignSet" />
+          <NavigationProperty Name="CitySet" Relationship="Self.FK_UserCity" FromRole="UserSet" ToRole="CitySet" />
+          <NavigationProperty Name="ErrorSet" Relationship="Self.FK_ErrorUser" FromRole="UserSet" ToRole="ErrorSet" />
+        </EntityType>
+        <Association Name="FK_UserAccessRights">
+          <End Role="AccessRightsSet" Type="SalesCommModel.AccessRights" Multiplicity="1" />
+          <End Role="UserSet" Type="SalesCommModel.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessRightsSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSet">
+              <PropertyRef Name="AccessRightsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemBrand">
+          <End Role="BrandSet" Type="SalesCommModel.Brand" Multiplicity="1" />
+          <End Role="ItemSet" Type="SalesCommModel.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BrandSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemSet">
+              <PropertyRef Name="BrandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessCity">
+          <End Role="CitySet" Type="SalesCommModel.City" Multiplicity="1" />
+          <End Role="BusinessSet" Type="SalesCommModel.Business" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CitySet">
+              <PropertyRef Name="PostalCode" />
+            </Principal>
+            <Dependent Role="BusinessSet">
+              <PropertyRef Name="CityPostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessTypeAss">
+          <End Role="BusinessTypeSet" Type="SalesCommModel.BusinessType" Multiplicity="1" />
+          <End Role="BusinessSet" Type="SalesCommModel.Business" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusinessTypeSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessSet">
+              <PropertyRef Name="BusinessTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChainBusiness">
+          <End Role="ChainSet" Type="SalesCommModel.Chain" Multiplicity="1" />
+          <End Role="BusinessSet" Type="SalesCommModel.Business" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChainSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessSet">
+              <PropertyRef Name="ChainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserBusiness">
+          <End Role="BusinessSet" Type="SalesCommModel.Business" Multiplicity="1" />
+          <End Role="UserSet" Type="SalesCommModel.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusinessSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSet">
+              <PropertyRef Name="BusinessId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CampaignItemCampaign">
+          <End Role="CampaignSet" Type="SalesCommModel.Campaign" Multiplicity="1" />
+          <End Role="ItemCampaignSet" Type="SalesCommModel.ItemCampaign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CampaignSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemCampaignSet">
+              <PropertyRef Name="CampaignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCampaign">
+          <End Role="UserSet" Type="SalesCommModel.User" Multiplicity="1" />
+          <End Role="CampaignSet" Type="SalesCommModel.Campaign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CampaignSet">
+              <PropertyRef Name="CreatedByUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CityChain">
+          <End Role="CitySet" Type="SalesCommModel.City" Multiplicity="1" />
+          <End Role="ChainSet" Type="SalesCommModel.Chain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CitySet">
+              <PropertyRef Name="PostalCode" />
+            </Principal>
+            <Dependent Role="ChainSet">
+              <PropertyRef Name="CityPostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCity">
+          <End Role="CitySet" Type="SalesCommModel.City" Multiplicity="1" />
+          <End Role="UserSet" Type="SalesCommModel.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CitySet">
+              <PropertyRef Name="PostalCode" />
+            </Principal>
+            <Dependent Role="UserSet">
+              <PropertyRef Name="CityPostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ErrorUser">
+          <End Role="UserSet" Type="SalesCommModel.User" Multiplicity="1" />
+          <End Role="ErrorSet" Type="SalesCommModel.Error" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ErrorSet">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemCampaignItem">
+          <End Role="ItemSet" Type="SalesCommModel.Item" Multiplicity="1" />
+          <End Role="ItemCampaignSet" Type="SalesCommModel.ItemCampaign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemCampaignSet">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ChainCampaign">
+          <End Role="CampaignSet" Type="SalesCommModel.Campaign" Multiplicity="*" />
+          <End Role="ChainSet" Type="SalesCommModel.Chain" Multiplicity="*" />
+        </Association>
+        <Association Name="ItemBusiness">
+          <End Role="BusinessSet" Type="SalesCommModel.Business" Multiplicity="*" />
+          <End Role="ItemSet" Type="SalesCommModel.Item" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="SalesCommEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccessRightsSet" EntityType="SalesCommModel.AccessRights" />
+          <EntitySet Name="BrandSet" EntityType="SalesCommModel.Brand" />
+          <EntitySet Name="BusinessSet" EntityType="SalesCommModel.Business" />
+          <EntitySet Name="BusinessTypeSet" EntityType="SalesCommModel.BusinessType" />
+          <EntitySet Name="CampaignSet" EntityType="SalesCommModel.Campaign" />
+          <EntitySet Name="ChainSet" EntityType="SalesCommModel.Chain" />
+          <EntitySet Name="CitySet" EntityType="SalesCommModel.City" />
+          <EntitySet Name="ErrorSet" EntityType="SalesCommModel.Error" />
+          <EntitySet Name="ItemCampaignSet" EntityType="SalesCommModel.ItemCampaign" />
+          <EntitySet Name="ItemSet" EntityType="SalesCommModel.Item" />
+          <EntitySet Name="UserSet" EntityType="SalesCommModel.User" />
+          <AssociationSet Name="FK_UserAccessRights" Association="Self.FK_UserAccessRights">
+            <End Role="AccessRightsSet" EntitySet="AccessRightsSet" />
+            <End Role="UserSet" EntitySet="UserSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemBrand" Association="Self.FK_ItemBrand">
+            <End Role="BrandSet" EntitySet="BrandSet" />
+            <End Role="ItemSet" EntitySet="ItemSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessCity" Association="Self.FK_BusinessCity">
+            <End Role="CitySet" EntitySet="CitySet" />
+            <End Role="BusinessSet" EntitySet="BusinessSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessTypeAss" Association="Self.FK_BusinessTypeAss">
+            <End Role="BusinessTypeSet" EntitySet="BusinessTypeSet" />
+            <End Role="BusinessSet" EntitySet="BusinessSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChainBusiness" Association="Self.FK_ChainBusiness">
+            <End Role="ChainSet" EntitySet="ChainSet" />
+            <End Role="BusinessSet" EntitySet="BusinessSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserBusiness" Association="Self.FK_UserBusiness">
+            <End Role="BusinessSet" EntitySet="BusinessSet" />
+            <End Role="UserSet" EntitySet="UserSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CampaignItemCampaign" Association="Self.FK_CampaignItemCampaign">
+            <End Role="CampaignSet" EntitySet="CampaignSet" />
+            <End Role="ItemCampaignSet" EntitySet="ItemCampaignSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCampaign" Association="Self.FK_UserCampaign">
+            <End Role="UserSet" EntitySet="UserSet" />
+            <End Role="CampaignSet" EntitySet="CampaignSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CityChain" Association="Self.FK_CityChain">
+            <End Role="CitySet" EntitySet="CitySet" />
+            <End Role="ChainSet" EntitySet="ChainSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCity" Association="Self.FK_UserCity">
+            <End Role="CitySet" EntitySet="CitySet" />
+            <End Role="UserSet" EntitySet="UserSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ErrorUser" Association="Self.FK_ErrorUser">
+            <End Role="UserSet" EntitySet="UserSet" />
+            <End Role="ErrorSet" EntitySet="ErrorSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemCampaignItem" Association="Self.FK_ItemCampaignItem">
+            <End Role="ItemSet" EntitySet="ItemSet" />
+            <End Role="ItemCampaignSet" EntitySet="ItemCampaignSet" />
+          </AssociationSet>
+          <AssociationSet Name="ChainCampaign" Association="Self.ChainCampaign">
+            <End Role="CampaignSet" EntitySet="CampaignSet" />
+            <End Role="ChainSet" EntitySet="ChainSet" />
+          </AssociationSet>
+          <AssociationSet Name="ItemBusiness" Association="Self.ItemBusiness">
+            <End Role="BusinessSet" EntitySet="BusinessSet" />
+            <End Role="ItemSet" EntitySet="ItemSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SalesCommModelStoreContainer" CdmEntityContainer="SalesCommEntities">
+          <EntitySetMapping Name="AccessRightsSet">
+            <EntityTypeMapping TypeName="SalesCommModel.AccessRights">
+              <MappingFragment StoreEntitySet="AccessRightsSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BrandSet">
+            <EntityTypeMapping TypeName="SalesCommModel.Brand">
+              <MappingFragment StoreEntitySet="BrandSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ImgURL" ColumnName="ImgURL" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusinessSet">
+            <EntityTypeMapping TypeName="SalesCommModel.Business">
+              <MappingFragment StoreEntitySet="BusinessSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BusinessTypeId" ColumnName="BusinessTypeId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CityPostalCode" ColumnName="CityPostalCode" />
+                <ScalarProperty Name="CVR" ColumnName="CVR" />
+                <ScalarProperty Name="ChainId" ColumnName="ChainId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusinessTypeSet">
+            <EntityTypeMapping TypeName="SalesCommModel.BusinessType">
+              <MappingFragment StoreEntitySet="BusinessTypeSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CampaignSet">
+            <EntityTypeMapping TypeName="SalesCommModel.Campaign">
+              <MappingFragment StoreEntitySet="CampaignSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedByUserId" ColumnName="CreatedByUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChainSet">
+            <EntityTypeMapping TypeName="SalesCommModel.Chain">
+              <MappingFragment StoreEntitySet="ChainSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ProMode" ColumnName="ProMode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CityPostalCode" ColumnName="CityPostalCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CitySet">
+            <EntityTypeMapping TypeName="SalesCommModel.City">
+              <MappingFragment StoreEntitySet="CitySet">
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ErrorSet">
+            <EntityTypeMapping TypeName="SalesCommModel.Error">
+              <MappingFragment StoreEntitySet="ErrorSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProcessName" ColumnName="ProcessName" />
+                <ScalarProperty Name="Page" ColumnName="Page" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemCampaignSet">
+            <EntityTypeMapping TypeName="SalesCommModel.ItemCampaign">
+              <MappingFragment StoreEntitySet="ItemCampaignSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="CampaignId" ColumnName="CampaignId" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemSet">
+            <EntityTypeMapping TypeName="SalesCommModel.Item">
+              <MappingFragment StoreEntitySet="ItemSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ImgURL" ColumnName="ImgURL" />
+                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+                <ScalarProperty Name="ProOnly" ColumnName="ProOnly" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSet">
+            <EntityTypeMapping TypeName="SalesCommModel.User">
+              <MappingFragment StoreEntitySet="UserSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AccessRightsId" ColumnName="AccessRightsId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="BusinessId" ColumnName="BusinessId" />
+                <ScalarProperty Name="CityPostalCode" ColumnName="CityPostalCode" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ChainCampaign" TypeName="SalesCommModel.ChainCampaign" StoreEntitySet="ChainCampaign">
+            <EndProperty Name="CampaignSet">
+              <ScalarProperty Name="Id" ColumnName="Campaign_Id" />
+            </EndProperty>
+            <EndProperty Name="ChainSet">
+              <ScalarProperty Name="Id" ColumnName="Chain_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ItemBusiness" TypeName="SalesCommModel.ItemBusiness" StoreEntitySet="ItemBusiness">
+            <EndProperty Name="BusinessSet">
+              <ScalarProperty Name="Id" ColumnName="Business_Id" />
+            </EndProperty>
+            <EndProperty Name="ItemSet">
+              <ScalarProperty Name="Id" ColumnName="Item_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

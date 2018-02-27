@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SalesCommModelStoreContainer" CdmEntityContainer="SalesCommEntities">
+    <EntitySetMapping Name="AccessRightsSet">
+      <EntityTypeMapping TypeName="SalesCommModel.AccessRights">
+        <MappingFragment StoreEntitySet="AccessRightsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BrandSet">
+      <EntityTypeMapping TypeName="SalesCommModel.Brand">
+        <MappingFragment StoreEntitySet="BrandSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ImgURL" ColumnName="ImgURL" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BusinessSet">
+      <EntityTypeMapping TypeName="SalesCommModel.Business">
+        <MappingFragment StoreEntitySet="BusinessSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BusinessTypeId" ColumnName="BusinessTypeId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CityPostalCode" ColumnName="CityPostalCode" />
+          <ScalarProperty Name="CVR" ColumnName="CVR" />
+          <ScalarProperty Name="ChainId" ColumnName="ChainId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BusinessTypeSet">
+      <EntityTypeMapping TypeName="SalesCommModel.BusinessType">
+        <MappingFragment StoreEntitySet="BusinessTypeSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CampaignSet">
+      <EntityTypeMapping TypeName="SalesCommModel.Campaign">
+        <MappingFragment StoreEntitySet="CampaignSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedByUserId" ColumnName="CreatedByUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChainSet">
+      <EntityTypeMapping TypeName="SalesCommModel.Chain">
+        <MappingFragment StoreEntitySet="ChainSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ProMode" ColumnName="ProMode" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CityPostalCode" ColumnName="CityPostalCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CitySet">
+      <EntityTypeMapping TypeName="SalesCommModel.City">
+        <MappingFragment StoreEntitySet="CitySet">
+          <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ErrorSet">
+      <EntityTypeMapping TypeName="SalesCommModel.Error">
+        <MappingFragment StoreEntitySet="ErrorSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProcessName" ColumnName="ProcessName" />
+          <ScalarProperty Name="Page" ColumnName="Page" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ItemCampaignSet">
+      <EntityTypeMapping TypeName="SalesCommModel.ItemCampaign">
+        <MappingFragment StoreEntitySet="ItemCampaignSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+          <ScalarProperty Name="CampaignId" ColumnName="CampaignId" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ItemSet">
+      <EntityTypeMapping TypeName="SalesCommModel.Item">
+        <MappingFragment StoreEntitySet="ItemSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ImgURL" ColumnName="ImgURL" />
+          <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+          <ScalarProperty Name="ProOnly" ColumnName="ProOnly" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserSet">
+      <EntityTypeMapping TypeName="SalesCommModel.User">
+        <MappingFragment StoreEntitySet="UserSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="AccessRightsId" ColumnName="AccessRightsId" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="BusinessId" ColumnName="BusinessId" />
+          <ScalarProperty Name="CityPostalCode" ColumnName="CityPostalCode" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ChainCampaign" TypeName="SalesCommModel.ChainCampaign" StoreEntitySet="ChainCampaign">
+      <EndProperty Name="CampaignSet">
+        <ScalarProperty Name="Id" ColumnName="Campaign_Id" />
+      </EndProperty>
+      <EndProperty Name="ChainSet">
+        <ScalarProperty Name="Id" ColumnName="Chain_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ItemBusiness" TypeName="SalesCommModel.ItemBusiness" StoreEntitySet="ItemBusiness">
+      <EndProperty Name="BusinessSet">
+        <ScalarProperty Name="Id" ColumnName="Business_Id" />
+      </EndProperty>
+      <EndProperty Name="ItemSet">
+        <ScalarProperty Name="Id" ColumnName="Item_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
