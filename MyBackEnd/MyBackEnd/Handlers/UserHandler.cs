@@ -46,6 +46,8 @@ namespace MyBackEnd
             }
         }
 
+        #region Public Methods
+
         #region CRUD
         public ModelUser CreateUser(ModelUser user)
         {
@@ -103,6 +105,25 @@ namespace MyBackEnd
             db.MarkAsChanged(u, EntityState.Deleted);
             db.SaveChanges();
             return true;
+        }
+        #endregion
+
+        public EfUser GetTestUser()
+        {
+            return new EfUser()
+            {
+                AccessRightsId = 1,
+                Address = "lolstreet 14",
+                BusinessId = 3,
+                CityPostalCode = 4100,
+                Email = "lol@lol.dk",
+                FirstName = "Morten",
+                LastName = "The Champ",
+                Id = 17,
+                Password = "123456",
+                PhoneNumber = "12345678",
+                UserName = "krazh"
+            };
         }
 
         #endregion
