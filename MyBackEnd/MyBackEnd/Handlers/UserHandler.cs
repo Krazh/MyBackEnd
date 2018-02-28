@@ -53,7 +53,7 @@ namespace MyBackEnd
         {
 
             if (user == null)
-                throw new Exception("Parameter is null");
+                throw new ArgumentException("Parameter is null");
             if (UserNameExists(user.UserName))
                 throw new Exception("Username already exists");
             EfUser u = user.ConvertObj<ModelUser, EfUser>();
@@ -122,7 +122,8 @@ namespace MyBackEnd
                 Id = 17,
                 Password = "123456",
                 PhoneNumber = "12345678",
-                UserName = "krazh"
+                UserName = "krazh",
+                FullName = "Morten The Champ"
             };
         }
 
