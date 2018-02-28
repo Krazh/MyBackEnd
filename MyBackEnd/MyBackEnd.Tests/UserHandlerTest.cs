@@ -3,51 +3,94 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyBackEnd;
 using MyBackEnd.Assets;
 using SharedPOCO;
+using System.Linq;
+using User = MyBackEnd.Assets.User;
+using ModelUser = SharedPOCO.User;
+using System.Data.Entity;
 
 namespace MyBackEnd.Tests
 {
     [TestClass]
     public class UserHandlerTest
     {
-        private UserHandler Handler;
-        private UserTestContext context;
-
-        [TestInitialize]
-        public void TestInitialize()
+        #region Create User
+        [TestMethod]
+        public void CreateUser_ShouldReturnSameUser()
         {
-            context = new UserTestContext();
-            Handler = new UserHandler(context);
+            var handler = new UserHandler(new UserTestContext());
+
+            var user = handler.GetTestUser();
+
+            var result = handler.CreateUser(user.ConvertObj<User, ModelUser>()).ConvertObj<ModelUser, User>();
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(user.FullName, result.FullName);
+            Assert.AreEqual(user.Id, result.Id);
         }
 
         [TestMethod]
-        public void TestMethod1()
+        [ExpectedException(typeof(ArgumentException))]
+        public void CreateUser_ShouldFailOnNullObject()
         {
-            
+            var handler = new UserHandler(new UserTestContext());
+
+            ModelUser user = null;
+            var result = handler.CreateUser(user);
         }
+
+        [TestMethod]
+        public void CreateUser_ShouldFailIfUserNameExists()
+        {
+            var handler = new UserHandler(new UserTestContext());
+
+            var testUser = handler.GetTestUser().ConvertObj<User, ModelUser>();
+            handler.CreateUser(testUser);
+
+            try
+            {
+                var test = handler.CreateUser(testUser);
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("Username already exists", ex.Message);                
+            }
+        }
+        #endregion
+
     }
 
     public class UserTestContext : IUserSetContext
     {
-        public System.Data.Entity.DbSet<Assets.User> UserSet => throw new NotImplementedException();
+        public DbSet<User> UserSet { get; set; }
+
+        public UserTestContext()
+        {
+            UserSet = new TestUserDbSet();
+        }
+
 
         public void Dispose()
         {
             
         }
 
-        public System.Data.Entity.Infrastructure.DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
+        public void MarkAsChanged(User user, EntityState state)
         {
-            throw new NotImplementedException();
-        }
-
-        public void MarkAsChanged(Assets.User user, System.Data.Entity.EntityState state)
-        {
-            throw new NotImplementedException();
+            
         }
 
         public int SaveChanges()
         {
             return 0;
+        }
+    }
+
+    public class TestUserDbSet : TestDbSet<User>
+    {
+        public override User Find(params object[] keyValues)
+        {
+            return this.SingleOrDefault(x => x.Id == (int)keyValues.Single());
         }
     }
 }
