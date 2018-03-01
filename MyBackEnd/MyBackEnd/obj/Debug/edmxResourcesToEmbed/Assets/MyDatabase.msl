@@ -2,7 +2,7 @@
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="SalesCommModelStoreContainer" CdmEntityContainer="SalesCommEntities">
     <EntitySetMapping Name="AccessRightsSet">
-      <EntityTypeMapping TypeName="SalesCommModel.AccessRights">
+      <EntityTypeMapping TypeName="IsTypeOf(SalesCommModel.AccessRights)">
         <MappingFragment StoreEntitySet="AccessRightsSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
@@ -12,7 +12,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="BrandSet">
-      <EntityTypeMapping TypeName="SalesCommModel.Brand">
+      <EntityTypeMapping TypeName="IsTypeOf(SalesCommModel.Brand)">
         <MappingFragment StoreEntitySet="BrandSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
@@ -22,20 +22,20 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="BusinessSet">
-      <EntityTypeMapping TypeName="SalesCommModel.Business">
+      <EntityTypeMapping TypeName="IsTypeOf(SalesCommModel.Business)">
         <MappingFragment StoreEntitySet="BusinessSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="BusinessTypeId" ColumnName="BusinessTypeId" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="CityPostalCode" ColumnName="CityPostalCode" />
           <ScalarProperty Name="CVR" ColumnName="CVR" />
           <ScalarProperty Name="ChainId" ColumnName="ChainId" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="BusinessTypeSet">
-      <EntityTypeMapping TypeName="SalesCommModel.BusinessType">
+      <EntityTypeMapping TypeName="IsTypeOf(SalesCommModel.BusinessType)">
         <MappingFragment StoreEntitySet="BusinessTypeSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
@@ -43,7 +43,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CampaignSet">
-      <EntityTypeMapping TypeName="SalesCommModel.Campaign">
+      <EntityTypeMapping TypeName="IsTypeOf(SalesCommModel.Campaign)">
         <MappingFragment StoreEntitySet="CampaignSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="StartDate" ColumnName="StartDate" />
@@ -56,26 +56,18 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ChainSet">
-      <EntityTypeMapping TypeName="SalesCommModel.Chain">
+      <EntityTypeMapping TypeName="IsTypeOf(SalesCommModel.Chain)">
         <MappingFragment StoreEntitySet="ChainSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="ProMode" ColumnName="ProMode" />
           <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="CityPostalCode" ColumnName="CityPostalCode" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="CitySet">
-      <EntityTypeMapping TypeName="SalesCommModel.City">
-        <MappingFragment StoreEntitySet="CitySet">
-          <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ErrorSet">
-      <EntityTypeMapping TypeName="SalesCommModel.Error">
+      <EntityTypeMapping TypeName="IsTypeOf(SalesCommModel.Error)">
         <MappingFragment StoreEntitySet="ErrorSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ProcessName" ColumnName="ProcessName" />
@@ -87,7 +79,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ItemCampaignSet">
-      <EntityTypeMapping TypeName="SalesCommModel.ItemCampaign">
+      <EntityTypeMapping TypeName="IsTypeOf(SalesCommModel.ItemCampaign)">
         <MappingFragment StoreEntitySet="ItemCampaignSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ItemId" ColumnName="ItemId" />
@@ -98,7 +90,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ItemSet">
-      <EntityTypeMapping TypeName="SalesCommModel.Item">
+      <EntityTypeMapping TypeName="IsTypeOf(SalesCommModel.Item)">
         <MappingFragment StoreEntitySet="ItemSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
@@ -111,7 +103,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="UserSet">
-      <EntityTypeMapping TypeName="SalesCommModel.User">
+      <EntityTypeMapping TypeName="IsTypeOf(SalesCommModel.User)">
         <MappingFragment StoreEntitySet="UserSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="AccessRightsId" ColumnName="AccessRightsId" />
@@ -120,28 +112,38 @@
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
           <ScalarProperty Name="BusinessId" ColumnName="BusinessId" />
-          <ScalarProperty Name="CityPostalCode" ColumnName="CityPostalCode" />
           <ScalarProperty Name="FullName" ColumnName="FullName" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cities">
+      <EntityTypeMapping TypeName="IsTypeOf(SalesCommModel.City)">
+        <MappingFragment StoreEntitySet="Cities">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <AssociationSetMapping Name="ChainCampaign" TypeName="SalesCommModel.ChainCampaign" StoreEntitySet="ChainCampaign">
       <EndProperty Name="CampaignSet">
-        <ScalarProperty Name="Id" ColumnName="Campaign_Id" />
+        <ScalarProperty Name="Id" ColumnName="CampaignSet_Id" />
       </EndProperty>
       <EndProperty Name="ChainSet">
-        <ScalarProperty Name="Id" ColumnName="Chain_Id" />
+        <ScalarProperty Name="Id" ColumnName="ChainSet_Id" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="ItemBusiness" TypeName="SalesCommModel.ItemBusiness" StoreEntitySet="ItemBusiness">
       <EndProperty Name="BusinessSet">
-        <ScalarProperty Name="Id" ColumnName="Business_Id" />
+        <ScalarProperty Name="Id" ColumnName="BusinessSet_Id" />
       </EndProperty>
       <EndProperty Name="ItemSet">
-        <ScalarProperty Name="Id" ColumnName="Item_Id" />
+        <ScalarProperty Name="Id" ColumnName="ItemSet_Id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

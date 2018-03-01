@@ -39,6 +39,27 @@ namespace MyBackEnd.Tests
         }
 
         [TestMethod]
+        public void CreateUser_ShouldFailOnNullProperties()
+        {
+            var handler = new UserHandler(new UserTestContext());
+
+            ModelUser user = new ModelUser()
+            {
+                FirstName = null
+            };
+
+            try
+            {
+                var result = handler.CreateUser(user);
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("Non nullable properties are null", ex.Message);
+            }
+        }
+
+        [TestMethod]
         public void CreateUser_ShouldFailIfUserNameExists()
         {
             var handler = new UserHandler(new UserTestContext());

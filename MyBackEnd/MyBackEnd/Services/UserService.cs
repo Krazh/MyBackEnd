@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using SharedPOCO;
 using ModelUser = SharedPOCO.User;
 using EfUser = MyBackEnd.Assets.User;
 using MyBackEnd.Assets;
@@ -57,17 +58,7 @@ namespace MyBackEnd
 
         public ModelUser GetTestUser()
         {
-            return new ModelUser
-            {
-                AccessRightsId = 1,
-                Address = "Fynsgade 16 2tv",
-                BusinessId = 1,
-                CityPostalCode = 4100,
-                FirstName = "Test",
-                LastName = "Testersen",
-                Id = 1,
-                PhoneNumber = "22222222"
-            };
+            return UserHandler.GetTestUser().ConvertObj<EfUser, ModelUser>();
         }
 
         public List<ModelUser> GetAllUsers()
@@ -104,7 +95,10 @@ namespace MyBackEnd
             }
             catch (Exception e)
             {
-                ErrorHandler.ReportError(e, CurrentUser.Id);
+                if (CurrentUser != null)
+                    ErrorHandler.ReportError(e, CurrentUser.Id);
+                else
+                    ErrorHandler.ReportError(e, 5);
                 return null;
             }
         }

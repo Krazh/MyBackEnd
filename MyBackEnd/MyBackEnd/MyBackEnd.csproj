@@ -77,6 +77,7 @@
       <DependentUpon>MyDatabase.edmx</DependentUpon>
       <LastGenOutput>MyDatabase.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Assets\MyDatabase.edmx.sql" />
     <Content Include="Assets\MyDatabase.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>MyDatabase.edmx</DependentUpon>

@@ -51,9 +51,10 @@ namespace MyBackEnd
         #region CRUD
         public ModelUser CreateUser(ModelUser user)
         {
-
             if (user == null)
                 throw new ArgumentException("Parameter is null");
+            if (!CheckNonNullablePropertiesAreNotNull(user))
+                throw new ArgumentException("Non nullable properties are null");
             if (UserNameExists(user.UserName))
                 throw new Exception("Username already exists");
             EfUser u = user.ConvertObj<ModelUser, EfUser>();
@@ -112,10 +113,9 @@ namespace MyBackEnd
         {
             return new EfUser()
             {
-                AccessRightsId = 1,
+                AccessRightsId = 3,
                 Address = "lolstreet 14",
                 BusinessId = 3,
-                CityPostalCode = 4100,
                 Email = "lol@lol.dk",
                 FirstName = "Morten",
                 LastName = "The Champ",
@@ -123,7 +123,8 @@ namespace MyBackEnd
                 Password = "123456",
                 PhoneNumber = "12345678",
                 UserName = "krazh",
-                FullName = "Morten The Champ"
+                FullName = "Morten The Champ",
+                CityId = 1
             };
         }
 
@@ -138,6 +139,12 @@ namespace MyBackEnd
             return true;
         }
 
+        private bool CheckNonNullablePropertiesAreNotNull(ModelUser user)
+        {
+            if (string.IsNullOrEmpty(user.FirstName) || string.IsNullOrEmpty(user.LastName) || string.IsNullOrEmpty(user.PhoneNumber))
+                return false;
+            return true;
+        }
         #endregion
     }
 }
