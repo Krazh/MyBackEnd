@@ -215,6 +215,7 @@ namespace MyBackEnd.Tests
             }
         }
 
+        [TestMethod]
         public void DeleteUser_ShouldFailOnNullObject()
         {
             UserHandler handler = new UserHandler(new UserTestContext());
