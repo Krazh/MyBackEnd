@@ -78,7 +78,158 @@ namespace MyBackEnd.Tests
             }
         }
         #endregion
+        #region Get User
+        [TestMethod]
+        public void GetUser_ShouldThrowExceptionIfIdIsNull()
+        {
+            UserHandler handler = new UserHandler(new UserTestContext());
 
+            try
+            {
+                var result = handler.GetUser(0);
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("ID is not set or 0", ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void GetUser_ShouldThrowExceptionIfUserIdDoesNotExist()
+        {
+            UserHandler handler = new UserHandler(new UserTestContext());
+
+            ModelUser u1 = new ModelUser()
+            {
+                Id = 1,
+                FirstName = "lol",
+                LastName = "more lol",
+                PhoneNumber = "123"
+            };
+
+            try
+            {
+                var u2 = handler.CreateUser(u1);
+                var result = handler.GetUser(2);
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("User doesn't exist", ex.Message);
+            }
+        }
+        #endregion
+        #region Update User
+
+        /// <summary>
+        /// Not currently working correctly. UserHandler doesn't update an object currently when it's not connected to an actual dbcontext file.
+        /// TestMethod should either be updated to implement a test database or UserHandler should be changed to take account for testing.
+        /// Add [TestMethod] when finished
+        /// </summary>
+        public void UpdateUser_ShouldUpdateValues()
+        {
+            UserHandler handler = new UserHandler(new UserTestContext());
+
+            ModelUser u1 = new ModelUser()
+            {
+                FirstName = "Tester",
+                LastName = "Person 1",
+                PhoneNumber = "123",
+                Id = 1
+            };
+
+            try
+            {
+                var result = handler.CreateUser(u1);
+
+                u1.LastName = "Person 2";
+
+                var r2 = handler.UpdateUser(u1);
+
+                if (!r2)
+                    Assert.Fail();
+
+                var newUser = handler.GetUser(u1.Id);
+                Assert.AreEqual(u1.LastName, newUser.LastName);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        [TestMethod]
+        public void UpdateUser_ShouldFailIfUserDoesNotExist()
+        {
+            UserHandler handler = new UserHandler(new UserTestContext());
+
+            try
+            {
+                ModelUser u1 = new ModelUser() {
+                    Id = 1,
+                    FirstName = "Lol",
+                    LastName = "more lol",
+                    PhoneNumber = "123"
+                };
+                var result = handler.UpdateUser(u1);
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("User doesn't exist", ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void UpdateUser_ShouldFailOnNullParameter()
+        {
+            UserHandler handler = new UserHandler(new UserTestContext());
+
+            try
+            {
+                var result = handler.UpdateUser(null);
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("Parameter is null", ex.Message);
+            }
+        }
+        #endregion
+        #region Delete User
+        [TestMethod]
+        public void DeleteUser_ShouldFailIfUserDoesNotExist()
+        {
+            UserHandler handler = new UserHandler(new UserTestContext());
+
+            try
+            {
+                ModelUser u = new ModelUser();
+                u.Id = 1;
+
+                var result = handler.DeleteUser(u);
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("User doesn't exist", ex.Message);
+            }
+        }
+
+        public void DeleteUser_ShouldFailOnNullObject()
+        {
+            UserHandler handler = new UserHandler(new UserTestContext());
+
+            try
+            {
+                var result = handler.DeleteUser(null);
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("Parameter is null", ex.Message);
+            }
+        }
+        #endregion
     }
 
     public class UserTestContext : IUserSetContext

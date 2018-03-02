@@ -99,6 +99,8 @@ namespace MyBackEnd
 
         public bool DeleteUser(ModelUser user)
         {
+            if (user == null)
+                throw new Exception("Parameter is null");
             if (!UserExists(user.Id))
                 throw new Exception("User doesn't exist");
             EfUser u = user.ConvertObj<ModelUser, EfUser>();
