@@ -74,7 +74,7 @@ namespace MyBackEnd.Tests
             }
             catch (Exception ex)
             {
-                Assert.AreEqual("Username already exists", ex.Message);                
+                Assert.AreEqual("Username already exists", ex.Message);
             }
         }
         #endregion
@@ -164,7 +164,8 @@ namespace MyBackEnd.Tests
 
             try
             {
-                ModelUser u1 = new ModelUser() {
+                ModelUser u1 = new ModelUser()
+                {
                     Id = 1,
                     FirstName = "Lol",
                     LastName = "more lol",
@@ -231,6 +232,67 @@ namespace MyBackEnd.Tests
             }
         }
         #endregion
+        #region Login
+        [TestMethod]
+        public void Login_ShouldReturnNullObjectOnWrongValues()
+        {
+            UserHandler handler = new UserHandler(new UserTestContext());
+
+            ModelUser u1 = new ModelUser()
+            {
+                FirstName = "Tester",
+                LastName = "Person 1",
+                PhoneNumber = "123",
+                Id = 1,
+                UserName = "test",
+                Password = "test"
+            };
+
+            handler.CreateUser(u1);
+
+            var result = handler.Login(u1.UserName, "123");
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void Login_ShouldFailOnNullParameters()
+        {
+            UserHandler handler = new UserHandler(new UserTestContext());
+
+            ModelUser u1 = new ModelUser()
+            {
+                FirstName = "Tester",
+                LastName = "Person 1",
+                PhoneNumber = "123",
+                Id = 1,
+                UserName = "test",
+                Password = "test"
+            };
+
+            handler.CreateUser(u1);
+
+            try
+            {
+                handler.Login("", "123");
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("All fields must be filled", ex.Message);
+            }
+
+            try
+            {
+                handler.Login("123", "");
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("All fields must be filled", ex.Message);
+            }
+        }
+        #endregion
     }
 
     public class UserTestContext : IUserSetContext
@@ -245,12 +307,12 @@ namespace MyBackEnd.Tests
 
         public void Dispose()
         {
-            
+
         }
 
         public void MarkAsChanged(User user, EntityState state)
         {
-            
+
         }
 
         public int SaveChanges()

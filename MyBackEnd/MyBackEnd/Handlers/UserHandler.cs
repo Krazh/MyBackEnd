@@ -23,29 +23,6 @@ namespace MyBackEnd
         }
         #endregion
 
-        public bool UserExists(int id)
-        {
-            try
-            {
-                if (id == 0)
-                {
-                    throw new Exception("ID is not set or 0");
-                }
-
-                var result = (from t in db.UserSet
-                              where t.Id == id
-                              select t).Count();
-                if (result == 0) return false;
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                //_errorHandler.ReportError(e, CurrentUser.ConvertObj<ModelUser, User>());
-                return false;
-            }
-        }
-
         #region Public Methods
 
         #region CRUD
@@ -111,6 +88,20 @@ namespace MyBackEnd
         }
         #endregion
 
+        #region Login
+        public ModelUser Login(string userName, string password)
+        {
+            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
+                throw new Exception("All fields must be filled");
+            var user = db.UserSet.FirstOrDefault(x => x.UserName == userName && x.Password == password);
+
+            if (user == null)
+                return null;
+
+            return user.ConvertObj<EfUser, ModelUser>();
+        }
+        #endregion
+
         public EfUser GetTestUser()
         {
             return new EfUser()
@@ -128,6 +119,29 @@ namespace MyBackEnd
                 FullName = "Morten The Champ",
                 CityId = 1
             };
+        }
+
+        public bool UserExists(int id)
+        {
+            try
+            {
+                if (id == 0)
+                {
+                    throw new Exception("ID is not set or 0");
+                }
+
+                var result = (from t in db.UserSet
+                              where t.Id == id
+                              select t).Count();
+                if (result == 0) return false;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                //_errorHandler.ReportError(e, CurrentUser.ConvertObj<ModelUser, User>());
+                return false;
+            }
         }
 
         #endregion
