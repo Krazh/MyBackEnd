@@ -23,35 +23,15 @@ namespace MyBackEnd
         }
         #endregion
 
-        public bool UserExists(int id)
-        {
-            try
-            {
-                if (id == 0)
-                {
-                    throw new Exception("ID is not set or 0");
-                }
-
-                var result = (from t in db.UserSet
-                              where t.Id == id
-                              select t).Count();
-                if (result == 0) return false;
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                //_errorHandler.ReportError(e, CurrentUser.ConvertObj<ModelUser, User>());
-                return false;
-            }
-        }
+        #region Public Methods
 
         #region CRUD
         public ModelUser CreateUser(ModelUser user)
         {
-
             if (user == null)
-                throw new Exception("Parameter is null");
+                throw new ArgumentException("Parameter is null");
+            if (!CheckNonNullablePropertiesAreNotNull(user))
+                throw new ArgumentException("Non nullable properties are null");
             if (UserNameExists(user.UserName))
                 throw new Exception("Username already exists");
             EfUser u = user.ConvertObj<ModelUser, EfUser>();
@@ -96,6 +76,8 @@ namespace MyBackEnd
 
         public bool DeleteUser(ModelUser user)
         {
+            if (user == null)
+                throw new Exception("Parameter is null");
             if (!UserExists(user.Id))
                 throw new Exception("User doesn't exist");
             EfUser u = user.ConvertObj<ModelUser, EfUser>();
@@ -103,6 +85,63 @@ namespace MyBackEnd
             db.MarkAsChanged(u, EntityState.Deleted);
             db.SaveChanges();
             return true;
+        }
+        #endregion
+
+        #region Login
+        public ModelUser Login(string userName, string password)
+        {
+            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
+                throw new Exception("All fields must be filled");
+            var user = db.UserSet.FirstOrDefault(x => x.UserName == userName && x.Password == password);
+
+            if (user == null)
+                return null;
+
+            return user.ConvertObj<EfUser, ModelUser>();
+        }
+        #endregion
+
+        public EfUser GetTestUser()
+        {
+            return new EfUser()
+            {
+                AccessRightsId = 3,
+                Address = "lolstreet 14",
+                BusinessId = 3,
+                Email = "lol@lol.dk",
+                FirstName = "Morten",
+                LastName = "The Champ",
+                Id = 17,
+                Password = "123456",
+                PhoneNumber = "12345678",
+                UserName = "krazh",
+                FullName = "Morten The Champ",
+                CityId = 1
+            };
+        }
+
+        public bool UserExists(int id)
+        {
+            try
+            {
+                if (id == 0)
+                {
+                    throw new Exception("ID is not set or 0");
+                }
+
+                var result = (from t in db.UserSet
+                              where t.Id == id
+                              select t).Count();
+                if (result == 0) return false;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                //_errorHandler.ReportError(e, CurrentUser.ConvertObj<ModelUser, User>());
+                return false;
+            }
         }
 
         #endregion
@@ -116,6 +155,12 @@ namespace MyBackEnd
             return true;
         }
 
+        private bool CheckNonNullablePropertiesAreNotNull(ModelUser user)
+        {
+            if (string.IsNullOrEmpty(user.FirstName) || string.IsNullOrEmpty(user.LastName) || string.IsNullOrEmpty(user.PhoneNumber))
+                return false;
+            return true;
+        }
         #endregion
     }
 }

@@ -31,10 +31,10 @@ namespace MyBackEnd.Assets
         public virtual DbSet<BusinessType> BusinessTypeSet { get; set; }
         public virtual DbSet<Campaign> CampaignSet { get; set; }
         public virtual DbSet<Chain> ChainSet { get; set; }
-        public virtual DbSet<City> CitySet { get; set; }
         public virtual DbSet<Error> ErrorSet { get; set; }
         public virtual DbSet<ItemCampaign> ItemCampaignSet { get; set; }
         public virtual DbSet<Item> ItemSet { get; set; }
         public virtual DbSet<User> UserSet { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
     }
 }

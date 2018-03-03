@@ -114,3 +114,6 @@ D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd.Tests\obj\Debug\MyBackEnd.Tests.c
 D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd.Tests\obj\Debug\MyBackEnd.Tests.csproj.CoreCompileInputs.cache
 D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd.Tests\obj\Debug\MyBackEnd.Tests.dll
 D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd.Tests\obj\Debug\MyBackEnd.Tests.pdb
+D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd.Tests\bin\Debug\MyBackEnd.Tests.dll.config
+D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd.Tests\bin\Debug\EntityFramework.SqlServer.dll
+D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd.Tests\bin\Debug\EntityFramework.SqlServer.xml

@@ -25,12 +25,12 @@ namespace MyBackEnd.Assets
         public string Title { get; set; }
         public bool ProMode { get; set; }
         public string Address { get; set; }
-        public int CityPostalCode { get; set; }
+        public int CityId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Business> BusinessSet { get; set; }
-        public virtual City CitySet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Campaign> CampaignSet { get; set; }
+        public virtual City City { get; set; }
     }
 }
