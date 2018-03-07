@@ -292,6 +292,27 @@ namespace MyBackEnd.Tests
                 Assert.AreEqual("All fields must be filled", ex.Message);
             }
         }
+
+        [TestMethod]
+        public void Login_ShouldReturnUser()
+        {
+            UserHandler handler = new UserHandler(new UserTestContext());
+
+            ModelUser u1 = new ModelUser()
+            {
+                FirstName = "Tester",
+                LastName = "Person 1",
+                PhoneNumber = "123",
+                Id = 1,
+                UserName = "test",
+                Password = "test"
+            };
+
+            handler.CreateUser(u1);
+
+            var result = handler.Login(u1.UserName, u1.Password);
+            Assert.IsNotNull(result);
+        }
         #endregion
     }
 
