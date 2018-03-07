@@ -31,7 +31,7 @@ namespace MyBackEnd
         bool DeleteUser(ModelUser user);
 
         [OperationContract]
-        bool Login(string userName, string password);
+        ModelUser Login(string userName, string password);
         #endregion
 
         #region ErrorService
