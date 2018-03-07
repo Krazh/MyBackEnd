@@ -13,20 +13,21 @@ namespace MyBackEnd
     {
         public ModelUser CurrentUser;
 
-        public bool Login(string userName, string password)
+        public ModelUser Login(string userName, string password)
         {
             try
             {
                 var result = UserHandler.Login(userName, password);
                 if (result == null)
                     throw new Exception("Username or Password is wrong");
+                result.Password = string.Empty;
                 SetCurrentUser(result);
-                return true;
+                return result;
             }
             catch (Exception ex)
             {
                 ErrorHandler.ReportError(ex, CurrentUser.Id);
-                return false;
+                return null;
             }
         }
 
