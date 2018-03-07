@@ -11,25 +11,25 @@
         <EntityTypeShape EntityType="SalesCommModel.BusinessType" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="SalesCommModel.Campaign" Width="1.5" PointX="10.5" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="SalesCommModel.Chain" Width="1.5" PointX="12.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SalesCommModel.City" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SalesCommModel.Error" Width="1.5" PointX="10.5" PointY="8.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SalesCommModel.ItemCampaign" Width="1.5" PointX="12.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SalesCommModel.Item" Width="1.5" PointX="5.25" PointY="6.25" IsExpanded="true" />
         <EntityTypeShape EntityType="SalesCommModel.User" Width="1.5" PointX="8.25" PointY="5.5" IsExpanded="true" />
         <AssociationConnector Association="SalesCommModel.FK_UserAccessRights" ManuallyRouted="false" />
         <AssociationConnector Association="SalesCommModel.FK_ItemBrand" ManuallyRouted="false" />
-        <AssociationConnector Association="SalesCommModel.FK_BusinessCity" ManuallyRouted="false" />
         <AssociationConnector Association="SalesCommModel.FK_BusinessTypeAss" ManuallyRouted="false" />
         <AssociationConnector Association="SalesCommModel.FK_ChainBusiness" ManuallyRouted="false" />
         <AssociationConnector Association="SalesCommModel.FK_UserBusiness" ManuallyRouted="false" />
         <AssociationConnector Association="SalesCommModel.FK_CampaignItemCampaign" ManuallyRouted="false" />
         <AssociationConnector Association="SalesCommModel.FK_UserCampaign" ManuallyRouted="false" />
-        <AssociationConnector Association="SalesCommModel.FK_CityChain" ManuallyRouted="false" />
-        <AssociationConnector Association="SalesCommModel.FK_UserCity" ManuallyRouted="false" />
         <AssociationConnector Association="SalesCommModel.FK_ErrorUser" ManuallyRouted="false" />
         <AssociationConnector Association="SalesCommModel.FK_ItemCampaignItem" ManuallyRouted="false" />
         <AssociationConnector Association="SalesCommModel.ChainCampaign" ManuallyRouted="false" />
         <AssociationConnector Association="SalesCommModel.ItemBusiness" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SalesCommModel.City" Width="1.5" PointX="3.75" PointY="10.5" />
+        <AssociationConnector Association="SalesCommModel.CityBusiness" />
+        <AssociationConnector Association="SalesCommModel.CityUser" />
+        <AssociationConnector Association="SalesCommModel.CityChain" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

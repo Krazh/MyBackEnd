@@ -28,14 +28,14 @@
     <Property Name="BusinessTypeId" Type="Int32" Nullable="false" />
     <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="CityPostalCode" Type="Int32" Nullable="false" />
     <Property Name="CVR" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ChainId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="CitySet" Relationship="Self.FK_BusinessCity" FromRole="BusinessSet" ToRole="CitySet" />
     <NavigationProperty Name="BusinessTypeSet" Relationship="Self.FK_BusinessTypeAss" FromRole="BusinessSet" ToRole="BusinessTypeSet" />
     <NavigationProperty Name="ChainSet" Relationship="Self.FK_ChainBusiness" FromRole="BusinessSet" ToRole="ChainSet" />
     <NavigationProperty Name="UserSet" Relationship="Self.FK_UserBusiness" FromRole="BusinessSet" ToRole="UserSet" />
     <NavigationProperty Name="ItemSet" Relationship="Self.ItemBusiness" FromRole="BusinessSet" ToRole="ItemSet" />
+    <NavigationProperty Name="City" Relationship="SalesCommModel.CityBusiness" FromRole="Business" ToRole="City" />
+    <Property Name="CityId" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="BusinessType">
     <Key>
@@ -68,20 +68,10 @@
     <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="ProMode" Type="Boolean" Nullable="false" />
     <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="CityPostalCode" Type="Int32" Nullable="false" />
     <NavigationProperty Name="BusinessSet" Relationship="Self.FK_ChainBusiness" FromRole="ChainSet" ToRole="BusinessSet" />
-    <NavigationProperty Name="CitySet" Relationship="Self.FK_CityChain" FromRole="ChainSet" ToRole="CitySet" />
     <NavigationProperty Name="CampaignSet" Relationship="Self.ChainCampaign" FromRole="ChainSet" ToRole="CampaignSet" />
-  </EntityType>
-  <EntityType Name="City">
-    <Key>
-      <PropertyRef Name="PostalCode" />
-    </Key>
-    <Property Name="PostalCode" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="BusinessSet" Relationship="Self.FK_BusinessCity" FromRole="CitySet" ToRole="BusinessSet" />
-    <NavigationProperty Name="ChainSet" Relationship="Self.FK_CityChain" FromRole="CitySet" ToRole="ChainSet" />
-    <NavigationProperty Name="UserSet" Relationship="Self.FK_UserCity" FromRole="CitySet" ToRole="UserSet" />
+    <NavigationProperty Name="City" Relationship="SalesCommModel.CityChain" FromRole="Chain" ToRole="City" />
+    <Property Name="CityId" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="Error">
     <Key>
@@ -130,19 +120,19 @@
     <Property Name="AccessRightsId" Type="Int32" Nullable="false" />
     <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="true" />
     <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="BusinessId" Type="Int32" Nullable="false" />
-    <Property Name="CityPostalCode" Type="Int32" Nullable="false" />
+    <Property Name="BusinessId" Type="Int32" Nullable="true" />
     <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="AccessRightsSet" Relationship="Self.FK_UserAccessRights" FromRole="UserSet" ToRole="AccessRightsSet" />
-    <NavigationProperty Name="BusinessSet" Relationship="Self.FK_UserBusiness" FromRole="UserSet" ToRole="BusinessSet" />
+    <NavigationProperty Name="BusinessSet" Relationship="SalesCommModel.FK_UserBusiness" FromRole="UserSet" ToRole="BusinessSet" />
     <NavigationProperty Name="CampaignSet" Relationship="Self.FK_UserCampaign" FromRole="UserSet" ToRole="CampaignSet" />
-    <NavigationProperty Name="CitySet" Relationship="Self.FK_UserCity" FromRole="UserSet" ToRole="CitySet" />
     <NavigationProperty Name="ErrorSet" Relationship="Self.FK_ErrorUser" FromRole="UserSet" ToRole="ErrorSet" />
+    <NavigationProperty Name="City" Relationship="SalesCommModel.CityUser" FromRole="User" ToRole="City" />
+    <Property Name="CityId" Type="Int32" Nullable="true" />
   </EntityType>
   <Association Name="FK_UserAccessRights">
     <End Role="AccessRightsSet" Type="SalesCommModel.AccessRights" Multiplicity="1" />
@@ -165,18 +155,6 @@
       </Principal>
       <Dependent Role="ItemSet">
         <PropertyRef Name="BrandId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_BusinessCity">
-    <End Role="CitySet" Type="SalesCommModel.City" Multiplicity="1" />
-    <End Role="BusinessSet" Type="SalesCommModel.Business" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CitySet">
-        <PropertyRef Name="PostalCode" />
-      </Principal>
-      <Dependent Role="BusinessSet">
-        <PropertyRef Name="CityPostalCode" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -205,7 +183,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_UserBusiness">
-    <End Role="BusinessSet" Type="SalesCommModel.Business" Multiplicity="1" />
+    <End Role="BusinessSet" Type="SalesCommModel.Business" Multiplicity="0..1" />
     <End Role="UserSet" Type="SalesCommModel.User" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="BusinessSet">
@@ -237,30 +215,6 @@
       </Principal>
       <Dependent Role="CampaignSet">
         <PropertyRef Name="CreatedByUserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CityChain">
-    <End Role="CitySet" Type="SalesCommModel.City" Multiplicity="1" />
-    <End Role="ChainSet" Type="SalesCommModel.Chain" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CitySet">
-        <PropertyRef Name="PostalCode" />
-      </Principal>
-      <Dependent Role="ChainSet">
-        <PropertyRef Name="CityPostalCode" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UserCity">
-    <End Role="CitySet" Type="SalesCommModel.City" Multiplicity="1" />
-    <End Role="UserSet" Type="SalesCommModel.User" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CitySet">
-        <PropertyRef Name="PostalCode" />
-      </Principal>
-      <Dependent Role="UserSet">
-        <PropertyRef Name="CityPostalCode" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -303,7 +257,6 @@
     <EntitySet Name="BusinessTypeSet" EntityType="SalesCommModel.BusinessType" />
     <EntitySet Name="CampaignSet" EntityType="SalesCommModel.Campaign" />
     <EntitySet Name="ChainSet" EntityType="SalesCommModel.Chain" />
-    <EntitySet Name="CitySet" EntityType="SalesCommModel.City" />
     <EntitySet Name="ErrorSet" EntityType="SalesCommModel.Error" />
     <EntitySet Name="ItemCampaignSet" EntityType="SalesCommModel.ItemCampaign" />
     <EntitySet Name="ItemSet" EntityType="SalesCommModel.Item" />
@@ -315,10 +268,6 @@
     <AssociationSet Name="FK_ItemBrand" Association="Self.FK_ItemBrand">
       <End Role="BrandSet" EntitySet="BrandSet" />
       <End Role="ItemSet" EntitySet="ItemSet" />
-    </AssociationSet>
-    <AssociationSet Name="FK_BusinessCity" Association="Self.FK_BusinessCity">
-      <End Role="CitySet" EntitySet="CitySet" />
-      <End Role="BusinessSet" EntitySet="BusinessSet" />
     </AssociationSet>
     <AssociationSet Name="FK_BusinessTypeAss" Association="Self.FK_BusinessTypeAss">
       <End Role="BusinessTypeSet" EntitySet="BusinessTypeSet" />
@@ -340,14 +289,6 @@
       <End Role="UserSet" EntitySet="UserSet" />
       <End Role="CampaignSet" EntitySet="CampaignSet" />
     </AssociationSet>
-    <AssociationSet Name="FK_CityChain" Association="Self.FK_CityChain">
-      <End Role="CitySet" EntitySet="CitySet" />
-      <End Role="ChainSet" EntitySet="ChainSet" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserCity" Association="Self.FK_UserCity">
-      <End Role="CitySet" EntitySet="CitySet" />
-      <End Role="UserSet" EntitySet="UserSet" />
-    </AssociationSet>
     <AssociationSet Name="FK_ErrorUser" Association="Self.FK_ErrorUser">
       <End Role="UserSet" EntitySet="UserSet" />
       <End Role="ErrorSet" EntitySet="ErrorSet" />
@@ -364,5 +305,66 @@
       <End Role="BusinessSet" EntitySet="BusinessSet" />
       <End Role="ItemSet" EntitySet="ItemSet" />
     </AssociationSet>
+    <EntitySet Name="Cities" EntityType="SalesCommModel.City" />
+    <AssociationSet Name="CityBusiness" Association="SalesCommModel.CityBusiness">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="Business" EntitySet="BusinessSet" />
+    </AssociationSet>
+    <AssociationSet Name="CityUser" Association="SalesCommModel.CityUser">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="User" EntitySet="UserSet" />
+    </AssociationSet>
+    <AssociationSet Name="CityChain" Association="SalesCommModel.CityChain">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="Chain" EntitySet="ChainSet" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <Property Name="ZipCode" Type="String" Nullable="false" />
+    <Property Name="Country" Type="String" Nullable="false" />
+    <NavigationProperty Name="Businesses" Relationship="SalesCommModel.CityBusiness" FromRole="City" ToRole="Business" />
+    <NavigationProperty Name="Users" Relationship="SalesCommModel.CityUser" FromRole="City" ToRole="User" />
+    <NavigationProperty Name="Chains" Relationship="SalesCommModel.CityChain" FromRole="City" ToRole="Chain" />
+  </EntityType>
+  <Association Name="CityBusiness">
+    <End Type="SalesCommModel.City" Role="City" Multiplicity="1" />
+    <End Type="SalesCommModel.Business" Role="Business" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Business">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CityUser">
+    <End Type="SalesCommModel.City" Role="City" Multiplicity="0..1" />
+    <End Type="SalesCommModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CityChain">
+    <End Type="SalesCommModel.City" Role="City" Multiplicity="1" />
+    <End Type="SalesCommModel.Chain" Role="Chain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Chain">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
