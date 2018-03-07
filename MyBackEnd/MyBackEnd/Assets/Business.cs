@@ -25,16 +25,16 @@ namespace MyBackEnd.Assets
         public int BusinessTypeId { get; set; }
         public string Title { get; set; }
         public string Address { get; set; }
-        public int CityPostalCode { get; set; }
         public string CVR { get; set; }
         public int ChainId { get; set; }
+        public int CityId { get; set; }
     
-        public virtual City CitySet { get; set; }
         public virtual BusinessType BusinessTypeSet { get; set; }
         public virtual Chain ChainSet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> UserSet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Item> ItemSet { get; set; }
+        public virtual City City { get; set; }
     }
 }
