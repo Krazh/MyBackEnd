@@ -28,15 +28,21 @@ namespace MyBackEnd
         #region Public Methods
 
         #region CRUD
-        public ModelUser CreateUser(ModelUser user)
+        public ModelUser CreateUser(ModelUser user, string password, string repeatedPassword)
         {
             if (user == null)
                 throw new ArgumentException("Parameter is null");
+            if (string.IsNullOrEmpty(password) || string.IsNullOrEmpty(repeatedPassword))
+                throw new ArgumentException("Parameter is null");
+            if (password != repeatedPassword)
+                throw new ArgumentException("Passwords doesn't match");
             if (!CheckNonNullablePropertiesAreNotNull(user))
                 throw new ArgumentException("Non nullable properties are null");
             if (UserNameExists(user.UserName))
                 throw new Exception("Username already exists");
             EfUser u = user.ConvertObj<ModelUser, EfUser>();
+            u.Password.Salt = Crypter.Blowfish.GenerateSalt();
+            u.Password.Hash = HashPassword(password, u.Password.Salt);
             var s = db.UserSet.Add(u);
             db.SaveChanges();
             return u.ConvertObj<EfUser, ModelUser>();
