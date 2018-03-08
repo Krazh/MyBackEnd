@@ -79,6 +79,53 @@ namespace MyBackEnd.Tests
                 Assert.AreEqual("Username already exists", ex.Message);
             }
         }
+
+        [TestMethod]
+        public void CreateUser_ShouldFailIfPasswordsDoesNotMatch()
+        {
+            UserHandler handler = new UserHandler(new UserTestContext());
+
+            var user = handler.GetTestUser().ConvertObj<User, ModelUser>();
+            var pass = "123";
+            try
+            {
+                var result = handler.CreateUser(user, pass, "123456");
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("Passwords doesn't match", ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void CreateUser_ShouldFailOnEmptyPasswords()
+        {
+            UserHandler handler = new UserHandler(new UserTestContext());
+
+            var user = handler.GetTestUser().ConvertObj<User, ModelUser>();
+            var pass = "";
+
+            try
+            {
+                var result = handler.CreateUser(user, pass, "123");
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("Parameter is null", ex.Message);
+            }
+
+            try
+            {
+                var result = handler.CreateUser(user, "123", pass);
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("Parameter is null", ex.Message);
+            }
+        }
         #endregion
         #region Get User
         [TestMethod]
