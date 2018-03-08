@@ -114,9 +114,9 @@
           <ScalarProperty Name="BusinessId" ColumnName="BusinessId" />
           <ScalarProperty Name="FullName" ColumnName="FullName" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="PasswordId" ColumnName="PasswordId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -127,6 +127,17 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
           <ScalarProperty Name="Country" ColumnName="Country" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Passwords">
+      <EntityTypeMapping TypeName="IsTypeOf(SalesCommModel.Password)">
+        <MappingFragment StoreEntitySet="Passwords">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Hash" ColumnName="Hash" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="Salt" ColumnName="Salt" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

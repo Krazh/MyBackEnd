@@ -12,6 +12,7 @@
     <EntitySet Name="ItemSet" EntityType="SalesCommModel.Store.ItemSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserSet" EntityType="SalesCommModel.Store.UserSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Cities" EntityType="SalesCommModel.Store.Cities" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Passwords" EntityType="SalesCommModel.Store.Passwords" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ChainCampaign" EntityType="SalesCommModel.Store.ChainCampaign" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ItemBusiness" EntityType="SalesCommModel.Store.ItemBusiness" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_UserAccessRights" Association="SalesCommModel.Store.FK_UserAccessRights">
@@ -77,6 +78,10 @@
     <AssociationSet Name="CityChain" Association="SalesCommModel.Store.CityChain">
       <End Role="City" EntitySet="Cities" />
       <End Role="Chain" EntitySet="ChainSet" />
+    </AssociationSet>
+    <AssociationSet Name="PasswordUser" Association="SalesCommModel.Store.PasswordUser">
+      <End Role="Password" EntitySet="Passwords" />
+      <End Role="User" EntitySet="UserSet" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="AccessRightsSet">
@@ -184,9 +189,9 @@
     <Property Name="BusinessId" Type="int" Nullable="true" />
     <Property Name="FullName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="UserName" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Password" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Email" Type="nvarchar(max)" Nullable="true" />
     <Property Name="CityId" Type="int" Nullable="true" />
+    <Property Name="PasswordId" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="Cities">
     <Key>
@@ -196,6 +201,16 @@
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ZipCode" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Country" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Passwords">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Hash" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateCreated" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Salt" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="ChainCampaign">
     <Key>
@@ -354,6 +369,18 @@
       </Principal>
       <Dependent Role="Chain">
         <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PasswordUser">
+    <End Role="Password" Type="SalesCommModel.Store.Passwords" Multiplicity="0..1" />
+    <End Role="User" Type="SalesCommModel.Store.UserSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Password">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="PasswordId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

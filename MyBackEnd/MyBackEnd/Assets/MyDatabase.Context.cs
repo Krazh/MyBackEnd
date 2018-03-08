@@ -36,5 +36,6 @@ namespace MyBackEnd.Assets
         public virtual DbSet<Item> ItemSet { get; set; }
         public virtual DbSet<User> UserSet { get; set; }
         public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<Password> Passwords { get; set; }
     }
 }

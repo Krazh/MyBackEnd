@@ -5,6 +5,8 @@ using ModelUser = SharedPOCO.User;
 using EfUser = MyBackEnd.Assets.User;
 using System.Linq;
 using System.Data.Entity;
+using CryptSharp;
+using System.Text;
 
 namespace MyBackEnd
 {
@@ -26,15 +28,22 @@ namespace MyBackEnd
         #region Public Methods
 
         #region CRUD
-        public ModelUser CreateUser(ModelUser user)
+        public ModelUser CreateUser(ModelUser user, string password, string repeatedPassword)
         {
             if (user == null)
                 throw new ArgumentException("Parameter is null");
+            if (string.IsNullOrEmpty(password) || string.IsNullOrEmpty(repeatedPassword))
+                throw new ArgumentException("Parameter is null");
+            if (password != repeatedPassword)
+                throw new ArgumentException("Passwords doesn't match");
             if (!CheckNonNullablePropertiesAreNotNull(user))
                 throw new ArgumentException("Non nullable properties are null");
             if (UserNameExists(user.UserName))
                 throw new Exception("Username already exists");
             EfUser u = user.ConvertObj<ModelUser, EfUser>();
+            u.Password = new Assets.Password();
+            u.Password.Salt = Crypter.Blowfish.GenerateSalt();
+            u.Password.Hash = HashPassword(password, u.Password.Salt);
             var s = db.UserSet.Add(u);
             db.SaveChanges();
             return u.ConvertObj<EfUser, ModelUser>();
@@ -93,10 +102,15 @@ namespace MyBackEnd
         {
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
                 throw new Exception("All fields must be filled");
-            var user = db.UserSet.FirstOrDefault(x => x.UserName == userName && x.Password == password);
 
-            if (user == null)
-                return null;
+            var user = db.UserSet.FirstOrDefault(x => x.UserName == userName);
+
+            if (string.IsNullOrEmpty(user.Password.Hash))
+                throw new Exception("User password is not set");
+            if (string.IsNullOrEmpty(user.Password.Salt))
+                throw new Exception("No Salt found");
+            if (user.Password.Hash != HashPassword(password, user.Password.Salt))
+                throw new Exception("Wrong password entered");
 
             return user.ConvertObj<EfUser, ModelUser>();
         }
@@ -113,7 +127,6 @@ namespace MyBackEnd
                 FirstName = "Morten",
                 LastName = "The Champ",
                 Id = 17,
-                Password = "123456",
                 PhoneNumber = "12345678",
                 UserName = "krazh",
                 FullName = "Morten The Champ",
@@ -147,6 +160,17 @@ namespace MyBackEnd
         #endregion
 
         #region Private Methods
+        private string HashPassword(string password, string salt)
+        {
+            if (string.IsNullOrEmpty(password) || string.IsNullOrEmpty(salt))
+                throw new Exception("Parameter is null");
+            byte[] b = Encoding.UTF8.GetBytes(password);
+
+            string s = Crypter.Blowfish.Crypt(b, salt);
+            
+            return s;
+        }
+
         private bool UserNameExists(string username)
         {
             var user = db.UserSet.SingleOrDefault(x => x.UserName == username);
