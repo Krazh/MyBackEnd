@@ -25,7 +25,7 @@ namespace MyBackEnd
         bool UpdateUser(ModelUser user);
 
         [OperationContract]
-        ModelUser CreateUser(ModelUser user);
+        ModelUser CreateUser(ModelUser user, string password, string repeatedPassword);
 
         [OperationContract]
         bool DeleteUser(ModelUser user);

@@ -117,3 +117,6 @@ D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd.Tests\obj\Debug\MyBackEnd.Tests.p
 D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd.Tests\bin\Debug\MyBackEnd.Tests.dll.config
 D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd.Tests\bin\Debug\EntityFramework.SqlServer.dll
 D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd.Tests\bin\Debug\EntityFramework.SqlServer.xml
+D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd.Tests\bin\Debug\CryptSharp.dll
+D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd.Tests\bin\Debug\CryptSharp.pdb
+D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd.Tests\bin\Debug\CryptSharp.xml

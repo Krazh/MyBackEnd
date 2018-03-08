@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/01/2018 13:17:13
+-- Date Created: 03/08/2018 15:26:56
 -- Generated from EDMX file: D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd\Assets\MyDatabase.edmx
 -- --------------------------------------------------
 
@@ -65,6 +65,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CityChain]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ChainSet] DROP CONSTRAINT [FK_CityChain];
 GO
+IF OBJECT_ID(N'[dbo].[FK_PasswordUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserSet] DROP CONSTRAINT [FK_PasswordUser];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -102,6 +105,9 @@ IF OBJECT_ID(N'[dbo].[UserSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Cities]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Cities];
+GO
+IF OBJECT_ID(N'[dbo].[Passwords]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Passwords];
 GO
 IF OBJECT_ID(N'[dbo].[ChainCampaign]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ChainCampaign];
@@ -217,9 +223,9 @@ CREATE TABLE [dbo].[UserSet] (
     [BusinessId] int  NULL,
     [FullName] nvarchar(max)  NOT NULL,
     [UserName] nvarchar(max)  NULL,
-    [Password] nvarchar(max)  NULL,
     [Email] nvarchar(max)  NULL,
-    [CityId] int  NULL
+    [CityId] int  NULL,
+    [PasswordId] int  NULL
 );
 GO
 
@@ -229,6 +235,16 @@ CREATE TABLE [dbo].[Cities] (
     [Name] nvarchar(max)  NOT NULL,
     [ZipCode] nvarchar(max)  NOT NULL,
     [Country] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'Passwords'
+CREATE TABLE [dbo].[Passwords] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Hash] nvarchar(max)  NOT NULL,
+    [UserId] nvarchar(max)  NOT NULL,
+    [DateCreated] nvarchar(max)  NOT NULL,
+    [Salt] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -313,6 +329,12 @@ GO
 -- Creating primary key on [Id] in table 'Cities'
 ALTER TABLE [dbo].[Cities]
 ADD CONSTRAINT [PK_Cities]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Passwords'
+ALTER TABLE [dbo].[Passwords]
+ADD CONSTRAINT [PK_Passwords]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -558,6 +580,21 @@ GO
 CREATE INDEX [IX_FK_CityChain]
 ON [dbo].[ChainSet]
     ([CityId]);
+GO
+
+-- Creating foreign key on [PasswordId] in table 'UserSet'
+ALTER TABLE [dbo].[UserSet]
+ADD CONSTRAINT [FK_PasswordUser]
+    FOREIGN KEY ([PasswordId])
+    REFERENCES [dbo].[Passwords]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PasswordUser'
+CREATE INDEX [IX_FK_PasswordUser]
+ON [dbo].[UserSet]
+    ([PasswordId]);
 GO
 
 -- --------------------------------------------------

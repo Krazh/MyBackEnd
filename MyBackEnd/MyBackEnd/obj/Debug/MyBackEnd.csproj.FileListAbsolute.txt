@@ -107,3 +107,6 @@ D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd\bin\EntityFramework.dll
 D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd\bin\EntityFramework.SqlServer.dll
 D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd\bin\EntityFramework.xml
 D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd\bin\EntityFramework.SqlServer.xml
+D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd\bin\CryptSharp.dll
+D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd\bin\CryptSharp.pdb
+D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd\bin\CryptSharp.xml
