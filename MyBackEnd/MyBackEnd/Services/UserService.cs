@@ -20,7 +20,6 @@ namespace MyBackEnd
                 var result = UserHandler.Login(userName, password);
                 if (result == null)
                     throw new Exception("Username or Password is wrong");
-                result.Password = string.Empty;
                 SetCurrentUser(result);
                 return result;
             }
@@ -105,11 +104,11 @@ namespace MyBackEnd
             }
         }
 
-        public ModelUser CreateUser(ModelUser user)
+        public ModelUser CreateUser(ModelUser user, string password, string repeatedPassword)
         {
             try
             {
-                return UserHandler.CreateUser(user);
+                return UserHandler.CreateUser(user, password, repeatedPassword);
             }
             catch (Exception e)
             {
