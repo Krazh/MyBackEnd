@@ -30,9 +30,9 @@ namespace MyBackEnd.Assets
         public Nullable<int> BusinessId { get; set; }
         public string FullName { get; set; }
         public string UserName { get; set; }
-        public string Password { get; set; }
         public string Email { get; set; }
         public Nullable<int> CityId { get; set; }
+        public Nullable<int> PasswordId { get; set; }
     
         public virtual AccessRights AccessRightsSet { get; set; }
         public virtual Business BusinessSet { get; set; }
@@ -41,5 +41,6 @@ namespace MyBackEnd.Assets
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Error> ErrorSet { get; set; }
         public virtual City City { get; set; }
+        public virtual Password Password { get; set; }
     }
 }
