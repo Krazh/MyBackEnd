@@ -41,6 +41,7 @@ namespace MyBackEnd
             if (UserNameExists(user.UserName))
                 throw new Exception("Username already exists");
             EfUser u = user.ConvertObj<ModelUser, EfUser>();
+            u.Password = new Assets.Password();
             u.Password.Salt = Crypter.Blowfish.GenerateSalt();
             u.Password.Hash = HashPassword(password, u.Password.Salt);
             var s = db.UserSet.Add(u);

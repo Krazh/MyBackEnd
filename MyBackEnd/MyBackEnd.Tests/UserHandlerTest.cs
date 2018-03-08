@@ -20,8 +20,9 @@ namespace MyBackEnd.Tests
             var handler = new UserHandler(new UserTestContext());
 
             var user = handler.GetTestUser();
+            var pass = "123";
 
-            var result = handler.CreateUser(user.ConvertObj<User, ModelUser>()).ConvertObj<ModelUser, User>();
+            var result = handler.CreateUser(user.ConvertObj<User, ModelUser>(), pass, pass).ConvertObj<ModelUser, User>();
 
             Assert.IsNotNull(result);
             Assert.AreEqual(user.FullName, result.FullName);
@@ -35,7 +36,7 @@ namespace MyBackEnd.Tests
             var handler = new UserHandler(new UserTestContext());
 
             ModelUser user = null;
-            var result = handler.CreateUser(user);
+            var result = handler.CreateUser(user, "123", "123");
         }
 
         [TestMethod]
@@ -50,7 +51,7 @@ namespace MyBackEnd.Tests
 
             try
             {
-                var result = handler.CreateUser(user);
+                var result = handler.CreateUser(user, "123", "123");
                 Assert.Fail();
             }
             catch (Exception ex)
@@ -65,11 +66,12 @@ namespace MyBackEnd.Tests
             var handler = new UserHandler(new UserTestContext());
 
             var testUser = handler.GetTestUser().ConvertObj<User, ModelUser>();
-            handler.CreateUser(testUser);
+            var pass = "123";
+            handler.CreateUser(testUser, pass, pass);
 
             try
             {
-                var test = handler.CreateUser(testUser);
+                var test = handler.CreateUser(testUser, pass, pass);
                 Assert.Fail();
             }
             catch (Exception ex)
@@ -106,10 +108,11 @@ namespace MyBackEnd.Tests
                 LastName = "more lol",
                 PhoneNumber = "123"
             };
+            var pass = "123";
 
             try
             {
-                var u2 = handler.CreateUser(u1);
+                var u2 = handler.CreateUser(u1, pass, pass);
                 var result = handler.GetUser(2);
                 Assert.Fail();
             }
@@ -138,9 +141,11 @@ namespace MyBackEnd.Tests
                 Id = 1
             };
 
+            var pass = "123";
+
             try
             {
-                var result = handler.CreateUser(u1);
+                var result = handler.CreateUser(u1, pass, pass);
 
                 u1.LastName = "Person 2";
 
@@ -234,7 +239,7 @@ namespace MyBackEnd.Tests
         #endregion
         #region Login
         [TestMethod]
-        public void Login_ShouldReturnNullObjectOnWrongValues()
+        public void Login_ShouldFailOnWrongPassword()
         {
             UserHandler handler = new UserHandler(new UserTestContext());
 
@@ -244,15 +249,20 @@ namespace MyBackEnd.Tests
                 LastName = "Person 1",
                 PhoneNumber = "123",
                 Id = 1,
-                UserName = "test",
-                Password = "test"
+                UserName = "test"
             };
+            var pass = "test";
 
-            handler.CreateUser(u1);
-
-            var result = handler.Login(u1.UserName, "123");
-
-            Assert.IsNull(result);
+            handler.CreateUser(u1, pass, pass);
+            try
+            {
+                var result = handler.Login(u1.UserName, "123");
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("Wrong password entered", ex.Message);
+            }
         }
 
         [TestMethod]
@@ -266,11 +276,11 @@ namespace MyBackEnd.Tests
                 LastName = "Person 1",
                 PhoneNumber = "123",
                 Id = 1,
-                UserName = "test",
-                Password = "test"
+                UserName = "test"
             };
+            var pass = "test";
 
-            handler.CreateUser(u1);
+            handler.CreateUser(u1, pass, pass);
 
             try
             {
@@ -304,13 +314,13 @@ namespace MyBackEnd.Tests
                 LastName = "Person 1",
                 PhoneNumber = "123",
                 Id = 1,
-                UserName = "test",
-                Password = "test"
+                UserName = "test"
             };
+            var pass = "123";
 
-            handler.CreateUser(u1);
+            handler.CreateUser(u1, pass, pass);
 
-            var result = handler.Login(u1.UserName, u1.Password);
+            var result = handler.Login(u1.UserName, pass);
             Assert.IsNotNull(result);
         }
         #endregion
