@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/08/2018 15:03:43
+-- Date Created: 03/08/2018 15:26:56
 -- Generated from EDMX file: D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd\Assets\MyDatabase.edmx
 -- --------------------------------------------------
 
@@ -65,6 +65,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CityChain]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ChainSet] DROP CONSTRAINT [FK_CityChain];
 GO
+IF OBJECT_ID(N'[dbo].[FK_PasswordUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserSet] DROP CONSTRAINT [FK_PasswordUser];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -102,6 +105,9 @@ IF OBJECT_ID(N'[dbo].[UserSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Cities]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Cities];
+GO
+IF OBJECT_ID(N'[dbo].[Passwords]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Passwords];
 GO
 IF OBJECT_ID(N'[dbo].[ChainCampaign]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ChainCampaign];
@@ -237,7 +243,8 @@ CREATE TABLE [dbo].[Passwords] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Hash] nvarchar(max)  NOT NULL,
     [UserId] nvarchar(max)  NOT NULL,
-    [DateCreated] nvarchar(max)  NOT NULL
+    [DateCreated] nvarchar(max)  NOT NULL,
+    [Salt] nvarchar(max)  NOT NULL
 );
 GO
 

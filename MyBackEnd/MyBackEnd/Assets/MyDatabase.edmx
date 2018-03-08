@@ -215,6 +215,7 @@
     <Property Name="Hash" Type="nvarchar(max)" Nullable="false" />
     <Property Name="UserId" Type="nvarchar(max)" Nullable="false" />
     <Property Name="DateCreated" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Salt" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="ChainCampaign">
     <Key>
@@ -822,6 +823,7 @@
           <Property Name="UserId" Type="String" Nullable="false" />
           <Property Name="DateCreated" Type="String" Nullable="false" />
           <NavigationProperty Name="Users" Relationship="SalesCommModel.PasswordUser" FromRole="Password" ToRole="User" />
+          <Property Name="Salt" Type="String" Nullable="false" />
         </EntityType>
         <Association Name="PasswordUser">
           <End Type="SalesCommModel.Password" Role="Password" Multiplicity="0..1" />
@@ -977,6 +979,7 @@
           <ScalarProperty Name="Hash" ColumnName="Hash" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="Salt" ColumnName="Salt" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

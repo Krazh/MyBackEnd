@@ -24,6 +24,7 @@ namespace MyBackEnd.Assets
         public string Hash { get; set; }
         public string UserId { get; set; }
         public string DateCreated { get; set; }
+        public string Salt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
