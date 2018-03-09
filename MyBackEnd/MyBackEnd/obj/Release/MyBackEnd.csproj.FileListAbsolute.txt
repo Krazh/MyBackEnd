@@ -107,3 +107,6 @@ D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd\obj\Release\MyBackEnd.csprojResol
 D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd\obj\Release\MyBackEnd.csproj.CoreCompileInputs.cache
 D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd\obj\Release\MyBackEnd.dll
 D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd\obj\Release\MyBackEnd.pdb
+D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd\bin\CryptSharp.dll
+D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd\bin\CryptSharp.pdb
+D:\Code Projects\MyBackEnd\MyBackEnd\MyBackEnd\bin\CryptSharp.xml

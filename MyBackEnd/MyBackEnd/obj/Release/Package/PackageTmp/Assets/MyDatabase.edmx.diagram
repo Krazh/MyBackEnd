@@ -30,6 +30,8 @@
         <AssociationConnector Association="SalesCommModel.CityBusiness" />
         <AssociationConnector Association="SalesCommModel.CityUser" />
         <AssociationConnector Association="SalesCommModel.CityChain" />
+        <EntityTypeShape EntityType="SalesCommModel.Password" Width="1.5" PointX="7.125" PointY="11.25" />
+        <AssociationConnector Association="SalesCommModel.PasswordUser" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

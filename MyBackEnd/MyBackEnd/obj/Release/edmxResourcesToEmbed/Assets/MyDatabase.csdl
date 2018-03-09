@@ -125,7 +125,6 @@
     <Property Name="BusinessId" Type="Int32" Nullable="true" />
     <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="AccessRightsSet" Relationship="Self.FK_UserAccessRights" FromRole="UserSet" ToRole="AccessRightsSet" />
     <NavigationProperty Name="BusinessSet" Relationship="SalesCommModel.FK_UserBusiness" FromRole="UserSet" ToRole="BusinessSet" />
@@ -133,6 +132,8 @@
     <NavigationProperty Name="ErrorSet" Relationship="Self.FK_ErrorUser" FromRole="UserSet" ToRole="ErrorSet" />
     <NavigationProperty Name="City" Relationship="SalesCommModel.CityUser" FromRole="User" ToRole="City" />
     <Property Name="CityId" Type="Int32" Nullable="true" />
+    <NavigationProperty Name="Password" Relationship="SalesCommModel.PasswordUser" FromRole="User" ToRole="Password" />
+    <Property Name="PasswordId" Type="Int32" Nullable="true" />
   </EntityType>
   <Association Name="FK_UserAccessRights">
     <End Role="AccessRightsSet" Type="SalesCommModel.AccessRights" Multiplicity="1" />
@@ -318,6 +319,11 @@
       <End Role="City" EntitySet="Cities" />
       <End Role="Chain" EntitySet="ChainSet" />
     </AssociationSet>
+    <EntitySet Name="Passwords" EntityType="SalesCommModel.Password" />
+    <AssociationSet Name="PasswordUser" Association="SalesCommModel.PasswordUser">
+      <End Role="Password" EntitySet="Passwords" />
+      <End Role="User" EntitySet="UserSet" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="City">
     <Key>
@@ -364,6 +370,29 @@
       </Principal>
       <Dependent Role="Chain">
         <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Password">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Hash" Type="String" Nullable="false" />
+    <Property Name="UserId" Type="String" Nullable="false" />
+    <Property Name="DateCreated" Type="String" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="SalesCommModel.PasswordUser" FromRole="Password" ToRole="User" />
+    <Property Name="Salt" Type="String" Nullable="false" />
+  </EntityType>
+  <Association Name="PasswordUser">
+    <End Type="SalesCommModel.Password" Role="Password" Multiplicity="0..1" />
+    <End Type="SalesCommModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Password">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="PasswordId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
